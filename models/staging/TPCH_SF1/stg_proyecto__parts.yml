@@ -1,0 +1,23 @@
+models:
+- name: stg_proyecto__parts
+  description: This model provides a detailed view of parts, including their identifiers,
+    names, manufacturers, brands, types, sizes, containers, and retail prices. It
+    is used to support inventory management and product analysis by offering a comprehensive
+    dataset of part attributes.
+  columns:
+  - name: part_id
+    description: A unique identifier for each part.
+  - name: name
+    description: The name of the part.
+  - name: manufacturer
+    description: The manufacturer of the part.
+  - name: brand
+    description: The brand of the part.
+  - name: type
+    description: The type or category of the part.
+  - name: size
+    description: The size of the part.
+  - name: container
+    description: The type of container used for the part.
+  - name: retail_price
+    description: The retail price of the part.

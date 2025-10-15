@@ -1,0 +1,30 @@
+models:
+- name: stg_proyecto__partsupp
+  description: This model provides a structured view of the parts and suppliers data,
+    focusing on the available quantity and supply cost for each part from each supplier.
+    It is useful for analyzing inventory levels and supplier costs.
+  data_tests:
+    - dbt_utils.unique_combination_of_columns:
+        arguments:
+          combination_of_columns:
+            - part_id
+            - supplier_id
+  columns:
+  - name: part_id
+    description: A unique identifier for each part.
+    data_tests:
+      - relationships:
+          arguments:
+            to: ref('stg_proyecto__parts')
+            field: part_id
+  - name: supplier_id
+    description: A unique identifier for each supplier.
+    data_tests:
+      - relationships:
+          arguments:
+            to: ref('stg_proyecto__suppliers')
+            field: supplier_id
+  - name: availble_quantity
+    description: The quantity of the part that is currently available from the supplier.
+  - name: supply_cost
+    description: The cost to supply the part from the supplier.

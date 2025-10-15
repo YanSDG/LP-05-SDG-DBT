@@ -1,0 +1,17 @@
+models:
+- name: stg_proyecto__nations
+  description: This model provides a structured view of nations, including their unique
+    identifiers, names, and associated region identifiers. It is useful for analyzing
+    and categorizing nations within different regions.
+  columns:
+  - name: nation_id
+    description: A unique identifier for each nation.
+  - name: name
+    description: The name of the nation.
+  - name: region_id
+    description: The identifier for the region to which the nation belongs.
+    data_tests:
+      - relationships:
+          arguments:
+            to: ref('stg_proyecto__regions')
+            field: region_id

@@ -1,0 +1,37 @@
+models:
+- name: stg_proyecto__orders
+  description: This model processes and filters order data from the TPCH_SF1 source,
+    focusing on the most recent orders within a 7-day margin. It is designed to incrementally
+    update the order information, ensuring that only the latest data is loaded or
+    edited. This model is useful for tracking recent order activities and maintaining
+    up-to-date order records.
+  columns:
+  - name: order_id
+    description: A unique identifier for each order.
+  - name: customer_id
+    description: The identifier for the customer who placed the order.
+    data_tests:
+      - relationships:
+          arguments:
+            to: ref('stg_proyecto__customers')
+            field: customer_id
+  - name: order_status
+    description: The current status of the order, indicating its progress in the order
+      lifecycle.
+    data_tests:
+      - accepted_values:
+          arguments:
+            values:
+              - O
+              - F
+              - P
+  - name: total_price
+    description: The total price of the order, representing the sum of all items included.
+  - name: order_date
+    description: The date when the order was placed.
+  - name: order_priority
+    description: The priority level assigned to the order, indicating its urgency.
+  - name: clerk
+    description: The clerk responsible for handling the order.
+  - name: ship_priority
+    description: The priority level for shipping the order, affecting delivery speed.

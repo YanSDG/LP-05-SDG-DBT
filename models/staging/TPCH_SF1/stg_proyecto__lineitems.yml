@@ -1,0 +1,66 @@
+models:
+- name: stg_proyecto__lineitems
+  description: This model provides a detailed view of line items from orders, capturing
+    essential details such as order, part, and supplier identifiers, as well as shipping
+    and pricing information. It is designed to incrementally load the most recently
+    shipped items, ensuring up-to-date data for analysis.
+  data_tests:
+    - dbt_utils.unique_combination_of_columns:
+        arguments:
+          combination_of_columns:
+            - order_id
+            - line_number
+  columns:
+  - name: order_id
+    description: A unique identifier for each order.
+    data_tests:
+      - relationships:
+          arguments:
+            to: ref('stg_proyecto__orders')
+            field: order_id
+  - name: part_id
+    description: A unique identifier for each part associated with the line item.
+    data_tests:
+      - relationships:
+          arguments:
+            to: ref('stg_proyecto__parts')
+            field: part_id
+  - name: supplier_id
+    description: A unique identifier for the supplier of the part.
+    data_tests:
+      - relationships:
+          arguments:
+            to: ref('stg_proyecto__suppliers')
+            field: supplier_id
+  - name: line_number
+    description: The line number within the order, indicating the sequence of the
+      item.
+  - name: quantity
+    description: The quantity of the part ordered.
+  - name: extended_price
+    description: The total price for the line item, calculated as quantity times unit
+      price.
+  - name: discount
+    description: The discount applied to the line item.
+  - name: tax
+    description: The tax applied to the line item.
+  - name: return_flag
+    description: Indicates whether the item has been returned.
+  - name: line_status
+    description: The current status of the line item.
+    data_tests:
+      - accepted_values:
+          arguments:
+            values:
+              - O
+              - F
+  - name: ship_date
+    description: The date the item was shipped.
+  - name: commit_date
+    description: The date by which the item is expected to be shipped.
+  - name: receipt_date
+    description: The date the item is expected to be received.
+  - name: ship_instruction
+    description: Special instructions for shipping the item.
+  - name: ship_mode
+    description: The mode of transportation used for shipping the item.

@@ -1,0 +1,89 @@
+sources:
+  - name: proyecto
+    database: SNOWFLAKE_SAMPLE_DATA
+    schema: TPCH_SF1
+    tables:
+      - name: customers
+        identifier: customer
+        description: Raw customers data
+        columns:
+          - name: c_custkey
+            description: primary key
+            data_tests:
+              - unique
+              - not_null
+      - name: lineitems
+        identifier: lineitem
+        description: Raw line items data (each item that has been ordered)
+        columns:
+          - name: l_orderkey
+            description: composite key, foreign key (order)
+            data_tests:
+              - not_null
+          - name: l_partkey
+            description: foreign key (part)
+            data_tests:
+              - not_null
+          - name: l_suppkey
+            description: foreign key (supplier)
+            data_tests:
+              - not_null
+          - name: l_linenumber
+            description: composite key
+            data_tests:
+              - not_null
+      - name: nations
+        identifier: nation
+        description: Raw nations data
+        columns:
+          - name: n_nationkey
+            description: primary key
+            data_tests:
+              - unique
+              - not_null
+      - name: orders
+        description: Raw orders data
+        columns:
+          - name: o_orderkey
+            description: primary key
+            data_tests:
+              - unique
+              - not_null
+      - name: parts
+        identifier: part
+        description: Raw parts data
+        columns:
+          - name: p_partkey
+            description: primary key
+            data_tests:
+              - unique
+              - not_null
+      - name: partsupp
+        description: Raw data, relationship between part and supplier
+        columns:
+          - name: ps_partkey
+            description: composite key, foreign key (part)
+            data_tests:
+              - not_null
+          - name: ps_suppkey
+            description: composite key, foreign key (supplier)
+            data_tests:
+              - not_null
+      - name: regions
+        identifier: region
+        description: Raw regions data
+        columns:
+          - name: r_regionkey
+            description: primary key
+            data_tests:
+              - unique
+              - not_null
+      - name: suppliers
+        identifier: supplier
+        description: Raw suppliers data
+        columns:
+          - name: s_suppkey
+            description: primary key
+            data_tests:
+              - unique
+              - not_null

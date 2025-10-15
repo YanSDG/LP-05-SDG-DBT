@@ -1,0 +1,24 @@
+models:
+- name: stg_proyecto__customers
+  description: This model provides a detailed view of customer information, including
+    identifiers, names, national affiliations, account balances, and market segments.
+    It is used to analyze customer demographics and financial data for business insights.
+  columns:
+  - name: customer_id
+    description: A unique identifier for each customer.
+  - name: name
+    description: The full name of the customer.
+  - name: nation_id
+    description: An identifier for the customer's nation, used to determine national
+      affiliation.
+    data_tests:
+      - relationships:
+          arguments:
+            to: ref('stg_proyecto__nations')
+            field: nation_id
+  - name: account_balance
+    description: The current balance of the customer's account, indicating financial
+      status.
+  - name: market_segment
+    description: The market segment to which the customer belongs, used for market
+      analysis.

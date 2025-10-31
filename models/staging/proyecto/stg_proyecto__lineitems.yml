@@ -1,0 +1,104 @@
+models:
+- name: stg_proyecto__lineitems
+  description: This model provides a detailed view of line items from orders, capturing
+    essential details such as order, part, and supplier identifiers, as well as shipping
+    and pricing information. It is designed to incrementally load the most recently
+    shipped items, ensuring up-to-date data for analysis.
+  config:
+    tags: ['sales']
+  data_tests:
+    - dbt_utils.unique_combination_of_columns:
+        arguments:
+          combination_of_columns:
+            - order_id
+            - line_number
+  columns:
+  - name: order_id
+    description: "{{ doc('orders_id_description') }}"
+    data_tests:
+      - not_null
+      - relationships:
+          arguments:
+            to: ref('stg_proyecto__orders')
+            field: order_id
+  - name: part_id
+    description: "{{ doc('parts_id_description') }}"
+    data_tests:
+      - not_null
+      - relationships:
+          arguments:
+            to: ref('stg_proyecto__parts')
+            field: part_id
+  - name: supplier_id
+    description: "{{ doc('suppliers_id_description') }}"
+    data_tests:
+      - not_null
+      - relationships:
+          arguments:
+            to: ref('stg_proyecto__suppliers')
+            field: supplier_id
+  - name: line_number
+    description: "{{ doc('line_number_description') }}"
+    data_tests:
+      - not_null
+      - is_integer
+      - is_positive
+  - name: quantity
+    description: "{{ doc('lineitems_quantity_description') }}"
+    data_tests:
+      - not_null
+      - is_integer
+      - is_positive
+  - name: extended_price
+    description: "{{ doc('lineitems_extended_price_description') }}"
+    data_tests:
+      - not_null
+      - is_positive
+  - name: discount
+    description: "{{ doc('lineitems_discount_description') }}"
+    data_tests:
+      - not_null
+      - value_between:
+          arguments:
+            min_value: 0
+            max_value: 1
+  - name: tax
+    description: "{{ doc('lineitems_tax_description') }}"
+    data_tests:
+      - not_null
+      - value_between:
+          arguments:
+            min_value: 0
+            max_value: 1
+  - name: return_flag
+    description: "{{ doc('lineitems_return_flag_description') }}"
+  - name: line_status
+    description: "{{ doc('lineitems_line_status_description') }}"
+    data_tests:
+      - accepted_values:
+          arguments:
+            values:
+              - O
+              - F
+  - name: ship_date
+    description: "{{ doc('lineitems_ship_date_description') }}"
+    data_tests:
+      - date_newer_than:
+          arguments:
+            old_date: '1900-01-01'
+  - name: commit_date
+    description: "{{ doc('lineitems_commit_date_description') }}"
+    data_tests:
+      - date_newer_than:
+          arguments:
+            old_date: '1900-01-01'
+  - name: receipt_date
+    description: "{{ doc('lineitems_receipt_date_description') }}"
+    data_tests:
+      - date_newer_than:
+          arguments:
+            old_date: '1900-01-01'
+  - name: ship_instruction
+    description: "{{ doc('lineitems_ship_instruction_description') }}"
+  - name: ship_mode
+    description: "{{ doc('lineitems_ship_mode_description') }}"

@@ -1,9 +1,0 @@
-models:
-- name: stg_proyecto__regions
-  description: This model provides a reference for regions, mapping region keys to
-    their respective names. It is used to standardize region data across various datasets.
-  columns:
-  - name: region_id
-    description: A unique identifier for each region.
-  - name: name
-    description: The name of the region.

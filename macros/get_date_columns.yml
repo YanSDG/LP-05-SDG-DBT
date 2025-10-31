@@ -1,0 +1,9 @@
+version: 2
+
+macros:
+  - name: get_date_columns
+    description: A dynamic utility macro that queries the INFORMATION_SCHEMA to return a list of all columns in a given model that have the 'DATE' data type. This is typically used for dynamic testing or modeling logic.
+    arguments:
+      - name: model
+        type: model or source reference
+        description: The dbt model or source object (e.g., {{ '{' }}{{ '{' }} ref('my_model') {{ '}' }}{{ '}' }}) to be introspected. This macro extracts the database, schema, and table name from this object.

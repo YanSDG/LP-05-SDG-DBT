@@ -1,0 +1,26 @@
+models:
+- name: stg_proyecto__customers
+  description: "{{ doc('customers_description') }}"
+  config:
+    tags: ['customers']
+  columns:
+  - name: customer_id
+    description: "{{ doc('customers_id_description') }}"
+    data_tests:
+      - unique
+      - not_null
+  - name: name
+    description: "{{ doc('customers_name_description') }}"
+    data_tests:
+      - not_null
+  - name: nation_id
+    description: An identifier for the nation associated with the customer.
+    data_tests:
+      - relationships:
+          arguments:
+            to: ref('stg_proyecto__nations')
+            field: nation_id
+  - name: account_balance
+    description: "{{ doc('customers_account_balance_description') }}"
+  - name: market_segment
+    description: "{{ doc('customers_market_segment_description') }}"

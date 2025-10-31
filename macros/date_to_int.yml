@@ -1,0 +1,9 @@
+version: 2
+
+macros:
+  - name: date_to_int
+    description: A utility macro that converts a standard date column into an 8-digit integer format (YYYYMMDD). This is typically used for date key creation or efficient date comparisons.
+    arguments:
+      - name: date_column
+        type: date
+        description: The name of the date or timestamp column (e.g., 'order_date') to be converted.

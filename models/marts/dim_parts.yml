@@ -1,0 +1,27 @@
+models:
+- name: dim_parts
+  description: "{{ doc('parts_description') }}"
+  config:
+    tags: ['parts']
+  columns:
+  - name: part_id
+    description: "{{ doc('parts_id_description') }}"
+    data_tests:
+      - unique
+      - not_null
+  - name: name
+    description: "{{ doc('parts_name_description') }}"
+    data_tests:
+      - not_null
+  - name: manufacturer
+    description: "{{ doc('parts_manufacturer_description') }}"
+  - name: brand
+    description: "{{ doc('parts_brand_description') }}"
+  - name: type
+    description: "{{ doc('parts_type_description') }}"
+  - name: size
+    description: "{{ doc('parts_size_description') }}"
+  - name: container
+    description: "{{ doc('parts_container_description') }}"
+  - name: retail_price
+    description: "{{ doc('parts_retail_price_description') }}"

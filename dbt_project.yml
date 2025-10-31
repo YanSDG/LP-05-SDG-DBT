@@ -24,7 +24,6 @@ clean-targets:         # directories to be removed by `dbt clean`
   - "target"
   - "dbt_packages"
 
-
 # Configuring models
 # Full documentation: https://docs.getdbt.com/docs/configuring-models
 
@@ -36,10 +35,28 @@ clean-targets:         # directories to be removed by `dbt clean`
 # using the `{{ config(...) }}` macro.
 
 models:
+  elementary:
+    +schema: "elementary"
+
   yan_shchasnovich_project:
-    # Applies to all files under models/staging/
+    +post-hook:
+      - "GRANT SELECT ON {{ this }} TO ROLE SNOWFLAKE_LEARNING_ROLE"
+      - "GRANT USAGE ON SCHEMA {{ this.schema }} TO ROLE SNOWFLAKE_LEARNING_ROLE"
+
     staging:
       +materialized: table
-
+      +tags: 'staging'
+    intermediate:
+      +tags: 'intermediate'
     marts:
       +materialized: table
+      +tags: 'marts'
+
+tests:
+  yan_shchasnovich_project:
+    staging:
+      +tags: 'staging'
+    intermediate:
+      +tags: 'intermediate'
+    marts:
+      +tags: 'marts'

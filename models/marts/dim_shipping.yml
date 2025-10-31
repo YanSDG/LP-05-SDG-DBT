@@ -1,0 +1,19 @@
+models:
+- name: dim_shipping
+  description: This model provides a unique identifier for shipping attributes and
+    details such as ship mode, ship instruction, and ship priority. It is used to
+    standardize and simplify the process of referencing shipping details in downstream
+    models.
+  columns:
+  - name: shipping_id
+    description: A unique identifier for each combination of ship mode, ship instruction,
+      and ship priority.
+    data_tests:
+      - unique
+      - not_null
+  - name: ship_mode
+    description: "{{ doc('lineitems_ship_mode_description') }}"
+  - name: ship_instruction
+    description: "{{ doc('lineitems_ship_instruction_description') }}"
+  - name: ship_priority
+    description: "{{ doc('orders_ship_priority_description') }}"

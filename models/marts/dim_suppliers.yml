@@ -1,0 +1,25 @@
+models:
+- name: dim_suppliers
+  description: "{{ doc('suppliers_description') }}"
+  config:
+    tags: ['suppliers']
+  columns:
+  - name: supplier_id
+    description: "{{ doc('suppliers_id_description') }}"
+    data_tests:
+      - unique
+      - not_null
+  - name: name
+    description: "{{ doc('suppliers_name_description') }}"
+    data_tests:
+      - not_null
+  - name: nation
+    description: The nation where the supplier is located.
+    data_tests:
+      - not_null
+  - name: region
+    description: The region within the nation where the supplier is located.
+    data_tests:
+      - not_null
+  - name: account_balance
+    description: "{{ doc('suppliers_account_balance_description') }}"

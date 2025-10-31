@@ -1,0 +1,23 @@
+models:
+- name: int_geography
+  description: This model integrates data from the nations and regions tables to provide
+    a comprehensive view of geographical information, including nation and region
+    names associated with each nation ID. It is useful for analyzing geographical
+    distributions and relationships.
+  columns:
+  - name: nation_id
+    description: A unique identifier for each nation, used to link nation data with
+      geographical regions.
+    data_tests:
+      - unique
+      - not_null
+  - name: nation
+    description: The name of the nation, providing a human-readable identifier for
+      each nation ID.
+    data_tests:
+      - not_null
+  - name: region
+    description: The name of the region associated with each nation, useful for regional
+      analysis and categorization.
+    data_tests:
+      - not_null

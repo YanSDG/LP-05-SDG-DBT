@@ -1,0 +1,48 @@
+models:
+- name: stg_proyecto__orders
+  description: This model processes and filters order data from the TPCH_SF1 source,
+    focusing on the most recent orders within a 7-day margin. It is designed to incrementally
+    update the order information, ensuring that only the latest data is loaded or
+    edited. This model is useful for tracking recent order activities and maintaining
+    up-to-date order records.
+  config:
+    tags: ['sales']
+  columns:
+  - name: order_id
+    description: "{{ doc('orders_id_description') }}"
+    data_tests:
+      - unique
+      - not_null
+  - name: customer_id
+    description: "{{ doc('customers_id_description') }}"
+    data_tests:
+      - relationships:
+          arguments:
+            to: ref('stg_proyecto__customers')
+            field: customer_id
+  - name: order_status
+    description: "{{ doc('orders_status_description') }}"
+    data_tests:
+      - accepted_values:
+          arguments:
+            values:
+              - O
+              - F
+              - P
+  - name: total_price
+    description: "{{ doc('orders_total_price_description') }}"
+    data_tests:
+      - not_null
+      - is_positive
+  - name: order_date
+    description: "{{ doc('orders_date_description') }}"
+    data_tests:
+      - date_newer_than:
+          arguments:
+            old_date: '1900-01-01'
+  - name: order_priority
+    description: "{{ doc('orders_priority_description') }}"
+  - name: clerk
+    description: "{{ doc('orders_clerk_description') }}"
+  - name: ship_priority
+    description: "{{ doc('orders_ship_priority_description') }}"

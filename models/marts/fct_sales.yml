@@ -1,0 +1,124 @@
+models:
+- name: fct_sales
+  description: This model aggregates sales data and provides insights into sales
+    performance, including net sales, gross profit, and gross margin percentages.
+  config:
+    tags: ['sales']
+  data_tests:
+    - dbt_utils.unique_combination_of_columns:
+        arguments:
+          combination_of_columns:
+            - order_id
+            - line_number
+  columns:
+  - name: order_id
+    description: Identifier for each order, used to group sales data.
+    data_tests:
+      - not_null
+  - name: line_number
+    description: The line number within the order, identifying individual items.
+    data_tests:
+      - not_null
+      - is_integer
+      - is_positive
+  - name: part_id
+    description: Foreign key to the parts dimension, identifying the specific part
+      sold.
+    data_tests:
+      - not_null
+  - name: customer_id
+    description: Foreign key to the customer dimension, identifying the customer who
+      made the purchase.
+    data_tests:
+      - not_null
+  - name: supplier_id
+    description: Foreign key to the supplier dimension, identifying the supplier of
+      the part.
+    data_tests:
+      - not_null
+  - name: sale_status_id
+    description: Hashed identifier representing the status of the sale, including
+      return, line, order, and priority status.
+    data_tests:
+      - not_null
+  - name: shipping_id
+    description: Hashed identifier representing the shipping details, including mode,
+      instruction, and priority.
+    data_tests:
+      - not_null
+  - name: ship_date_id
+    description: Date identifier for when the item was shipped.
+  - name: receipt_date_id
+    description: Date identifier for when the item was received.
+  - name: commit_date_id
+    description: Date identifier for when the order was committed.
+  - name: order_date_id
+    description: Date identifier for when the order was placed.
+  - name: quantity
+    description: The number of units sold in the order line.
+    data_tests:
+      - not_null
+      - is_integer
+      - is_positive
+  - name: discount
+    description: The discount rate applied to the order line.
+    data_tests:
+      - not_null
+      - value_between:
+          arguments:
+            min_value: 0
+            max_value: 1
+  - name: tax
+    description: The tax rate applied to the order line.
+    data_tests:
+      - not_null
+      - value_between:
+          arguments:
+            min_value: 0
+            max_value: 1
+  - name: item_price
+    description: The price per unit of the item sold.
+    data_tests:
+      - not_null
+      - is_positive
+  - name: item_supply_cost
+    description: The cost per unit to supply the item.
+    data_tests:
+      - not_null
+      - is_positive
+  - name: extended_price
+    description: The total price for the order line before discounts and taxes.
+    data_tests:
+      - not_null
+      - is_positive
+  - name: discount_amount
+    description: The total discount amount applied to the order line.
+    data_tests:
+      - not_null
+  - name: tax_amount
+    description: The total tax amount applied to the order line.
+    data_tests:
+      - not_null
+  - name: net_sale_amount
+    description: The total sale amount after discounts, before taxes.
+    data_tests:
+      - not_null
+      - is_positive
+  - name: total_payable_customer
+    description: The total amount payable by the customer, including taxes.
+    data_tests:
+      - not_null
+      - is_positive
+  - name: total_supply_cost
+    description: The total cost to supply the items in the order line.
+    data_tests:
+      - not_null
+      - is_positive
+  - name: gross_profit_amount
+    description: The total profit from the order line after supply costs.
+    data_tests:
+      - not_null
+  - name: gross_margin_percent
+    description: The percentage of gross profit relative to net sales.
+    data_tests:
+      - not_null

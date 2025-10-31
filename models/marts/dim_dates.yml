@@ -1,0 +1,100 @@
+models:
+- name: dim_dates
+  description: This model generates a date dimension table, which includes a range
+    of dates from the minimum date in the tables to the current date.
+    It is used to support time-based analyses and reporting by providing a comprehensive
+    set of date attributes.
+  columns:
+  - name: date_id
+    description: A unique identifier for each date, an integer in the YYYYMMDD format, derived from the 'date_day' field.
+    data_tests:
+      - unique
+      - not_null
+  - name: date_day
+    description: The full date as a DATE type (e.g., '2025-10-30').
+    data_tests:
+      - not_null
+
+  # --- DATE RELATIONSHIPS (Navigation) ---
+  - name: prior_date_day
+    description: The previous calendar day. Used for calculating day-over-day changes.
+  - name: next_date_day
+    description: The next calendar day.
+  - name: prior_year_date_day
+    description: The corresponding date in the previous calendar year.
+  - name: prior_year_over_year_date_day
+    description: The prior year date adjusted for a leap year offset.
+
+  # --- DAY ATTRIBUTES ---
+  - name: day_of_week
+    description: Day number within the week (1=Sunday, 7=Saturday).
+  - name: day_of_week_iso
+    description: Day number within the ISO week (1=Monday, 7=Sunday).
+  - name: day_of_week_name
+    description: Full name of the day (e.g., 'Thursday').
+  - name: day_of_week_name_short
+    description: Short name of the day (e.g., 'Thu').
+  - name: day_of_month
+    description: The day number within its month (1 to 31).
+  - name: day_of_year
+    description: The day number within its year (1 to 366).
+
+  # --- WEEK ATTRIBUTES ---
+  - name: week_start_date
+    description: The first date of the calendar week (often Sunday or Monday, depending on standard).
+  - name: week_end_date
+    description: The last date of the calendar week.
+  - name: prior_year_week_start_date
+    description: The start date of the corresponding week in the previous year.
+  - name: prior_year_week_end_date
+    description: The end date of the corresponding week in the previous year.
+  - name: week_of_year
+    description: The week number within the year (1 to 53).
+
+  # --- ISO WEEK ATTRIBUTES ---
+  - name: iso_week_start_date
+    description: The first date of the ISO 8601 week (always Monday).
+  - name: iso_week_end_date
+    description: The last date of the ISO 8601 week (always Sunday).
+  - name: prior_year_iso_week_start_date
+    description: The start date of the corresponding ISO week in the prior year.
+  - name: prior_year_iso_week_end_date
+    description: The end date of the corresponding ISO week in the prior year.
+  - name: iso_week_of_year
+    description: The ISO week number within the ISO year.
+  - name: iso_year_week
+    description: Combined ISO Year and Week number (e.g., 202544).
+
+  # --- MONTH ATTRIBUTES ---
+  - name: prior_year_week_of_year
+    description: The calendar week number of the prior year.
+  - name: prior_year_iso_week_of_year
+    description: The ISO week number of the prior year.
+  - name: month_of_year
+    description: The month number within the year (1 to 12).
+  - name: month_name
+    description: Full name of the month (e.g., 'October').
+  - name: month_name_short
+    description: Short name of the month (e.g., 'Oct').
+  - name: month_start_date
+    description: The first date of the calendar month.
+  - name: month_end_date
+    description: The last date of the calendar month.
+  - name: prior_year_month_start_date
+    description: The start date of the corresponding month in the previous year.
+  - name: prior_year_month_end_date
+    description: The end date of the corresponding month in the previous year.
+
+  # --- QUARTER & YEAR ATTRIBUTES ---
+  - name: quarter_of_year
+    description: The quarter number within the year (1 to 4).
+  - name: quarter_start_date
+    description: The first date of the calendar quarter.
+  - name: quarter_end_date
+    description: The last date of the calendar quarter.
+  - name: year_number
+    description: The four-digit year (e.g., 2025).
+  - name: year_start_date
+    description: The first date of the calendar year.
+  - name: year_end_date
+    description: The last date of the calendar year.

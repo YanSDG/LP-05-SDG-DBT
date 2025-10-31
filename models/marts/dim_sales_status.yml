@@ -1,0 +1,20 @@
+models:
+- name: dim_sales_status
+  description: This model provides a unique identifier for each combination of sales
+    status attributes, including return flag, line status, order status, and order
+    priority. It is used to categorize and track different sales statuses for analysis
+    and reporting purposes.
+  columns:
+  - name: sale_status_id
+    description: A unique identifier for each combination of sales status attributes.
+    data_tests:
+      - unique
+      - not_null
+  - name: return_flag
+    description: "{{ doc('lineitems_return_flag_description') }}"
+  - name: line_status
+    description: "{{ doc('lineitems_line_status_description') }}"
+  - name: order_status
+    description: "{{ doc('orders_status_description') }}"
+  - name: order_priority
+    description: "{{ doc('orders_priority_description') }}"
